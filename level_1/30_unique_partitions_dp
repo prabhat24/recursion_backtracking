@@ -1,0 +1,52 @@
+# https://practice.geeksforgeeks.org/problems/unique-partitions1041/1
+from collections import deque
+
+class Solution:
+	def UniquePartitions(self, n):
+	    
+	    dp = [None] * (n + 1)
+		return self.rec_unique_parts(n)
+	
+	def rec_unique_parts(self, n):
+	    if n == 0:
+	        d = deque()
+	        return [d]
+	    if n == 1:
+	        d = deque()
+	        d.appendleft(1)
+	        return [d]
+	    
+	    ans = []
+	    for i in range(n, 0, -1):
+	        complement_i = n - i 
+	        b = self.rec_unique_parts(complement_i)
+	        for item in b:
+	            if len(item) == 0 or i >= item[0]:
+	                item.appendleft(i)
+	                ans.append(item)
+        return ans
+        
+	def rec_unique_parts_dp(self, n, dp):
+	    if n == 0:
+	        d = deque()
+	        dp[n] = [d]
+	        return dp[n]
+	    if n == 1:
+	        d = deque()
+	        d.appendleft(1)
+	        dp[n] = [d]
+	        return dp[n]
+	        
+	    if dp[n]:
+	        return dp[n]
+	    
+	    ans = []
+	    for i in range(n, 0, -1):
+	        complement_i = n - i 
+	        b = self.rec_unique_parts(complement_i)
+	        for item in b:
+	            if len(item) == 0 or i >= item[0]:
+	                item.appendleft(i)
+	                ans.append(item)
+	    dp[n] = ans
+        return dp[n]
