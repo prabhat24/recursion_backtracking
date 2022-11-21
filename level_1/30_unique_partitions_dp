@@ -52,18 +52,24 @@ class Solution:
         return dp[n]
 
 
-def func(t, suma, psf):
-	if t == 0 and suma > 0:
-		return
-	if suma == 0:
-		print(psf)
-		return
-
-	if suma >= t:
-		func(t, suma-t, psf + [t])
-	func(t-1, suma, psf)
+class Solution:
+    ans = list()
+    
+	def UniquePartitions(self, n):
+	    self.ans = list()
+	    self.func(n, n, [])
+	    return self.ans
 
 
+    def func(self, t, suma, psf):
+    	if t == 0 and suma > 0:
+    		return
+    	if suma == 0:
+    		self.ans.append(psf)
+    		return
+    
+    	if suma >= t:
+    		self.func(t, suma-t, psf + [t])
+    	self.func(t-1, suma, psf)
 
-if __name__ == '__main__':
-	func(5, 5, [])
+
