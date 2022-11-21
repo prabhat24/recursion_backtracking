@@ -50,3 +50,20 @@ class Solution:
 	                ans.append(item)
 	    dp[n] = ans
         return dp[n]
+
+
+def func(t, suma, psf):
+	if t == 0 and suma > 0:
+		return
+	if suma == 0:
+		print(psf)
+		return
+
+	if suma >= t:
+		func(t, suma-t, psf + [t])
+	func(t-1, suma, psf)
+
+
+
+if __name__ == '__main__':
+	func(5, 5, [])
